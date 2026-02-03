@@ -1,0 +1,199 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+  --bg-color: #121212;
+  --panel-face: #2b2b2b;
+  --panel-shadow: #1a1a1a;
+  --text-main: #e0e0e0;
+  --text-muted: #888;
+  --accent-orange: #ff5f00;
+  --accent-blue: #00bcd4;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  font-family: 'Inter', sans-serif; /* Clean main font */
+  color: var(--text-main);
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Subtle mesh pattern background */
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Noise overlay - Keep existing but tweaked */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.06; 
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* CRT Effects */
+.scanlines {
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.1) 50%,
+        rgba(0,0,0,0.1)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+}
+
+.crt-flicker {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.98; }
+  50% { opacity: 0.94; }
+  100% { opacity: 0.98; }
+}
+
+/* Device Panel - The "Hi-Fi Stack" Look */
+.device-case {
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 
+    0 50px 100px -20px rgba(0,0,0,0.7),
+    inset 0 0 0 2px rgba(255,255,255,0.05),
+    inset 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
+  /* Brushed metal texture hint */
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 10px);
+}
+
+.module-panel {
+    background: linear-gradient(180deg, #333 0%, #2a2a2a 100%);
+    border: 1px solid #111;
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 2px 4px rgba(0,0,0,0.3);
+    border-radius: 4px;
+}
+
+/* Realistic LED */
+.led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #400;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+.led::after {
+    content: '';
+    position: absolute;
+    top: 1px; left: 2px;
+    width: 2px; height: 2px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+}
+.led.on {
+    background-color: #ff3b3b;
+    box-shadow: 
+        0 0 4px #ff3b3b, 
+        0 0 8px #ff3b3b,
+        inset -1px -1px 2px rgba(0,0,0,0.2);
+}
+
+/* Range Sliders inspired by mixing consoles */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 12px;
+  background: linear-gradient(to bottom, #ddd, #999);
+  border: 1px solid #555;
+  border-radius: 1px;
+  margin-top: -10px;
+  box-shadow: 
+    0 2px 4px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  cursor: grab;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    background: #bbb;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: #000;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Retro Button Style */
+.retro-btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: linear-gradient(to bottom, #444, #333);
+    color: #ccc;
+    border: 1px solid #111;
+    border-top: 1px solid #555;
+    border-radius: 2px;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+    box-shadow: 
+        0 2px 0 #1a1a1a,
+        0 3px 3px rgba(0,0,0,0.3);
+    transition: all 0.1s;
+}
+.retro-btn:hover {
+    background: linear-gradient(to bottom, #4d4d4d, #3d3d3d);
+    color: #fff;
+}
+.retro-btn:active, .retro-btn.active {
+    transform: translateY(2px);
+    box-shadow: 
+        0 0 0 #1a1a1a,
+        inset 0 1px 4px rgba(0,0,0,0.4);
+    background: #2a2a2a;
+    border-top: 1px solid #111;
+    color: var(--accent-orange);
+}
+.retro-btn.preset-active {
+    color: var(--accent-orange);
+    text-shadow: 0 0 5px rgba(255, 95, 0, 0.5);
+    border-color: #555;
+}
+
+/* Tape Window bezel */
+.tape-display {
+    background: #000;
+    box-shadow: inset 0 0 20px rgba(0,0,0,1);
+    border-radius: 4px;
+    border: 1px solid #333;
+    border-bottom: 1px solid #444; /* Light catch at bottom */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Font helpers */
+.font-display { font-family: 'VT323', monospace; }
+.font-hand { font-family: 'Permanent Marker', cursive; }
+
