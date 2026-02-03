@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import YouTube from 'react-youtube';
 import type { YouTubeProps } from 'react-youtube';
-import { Play, Pause, Radio, Disc, Mic2, Music, Shuffle, CassetteTape, Upload, FastForward, Rewind, Circle, Download } from 'lucide-react';
+import { Play, Pause, Radio, CassetteTape, Upload, FastForward, Rewind, Circle } from 'lucide-react';
 import { Knob } from './components/Knob';
 import { audioEngine } from './audio/AudioEngine';
 

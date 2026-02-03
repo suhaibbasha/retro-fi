@@ -24,29 +24,6 @@ export const Knob: React.FC<KnobProps> = ({ label, min, max, value, onChange, co
   };
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging || !knobRef.current) return;
-
-      const rect = knobRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      // Calculate angle from center to mouse
-      const deltaX = e.clientX - centerX;
-      const deltaY = centerY - e.clientY; // Invert Y because screen coords
-      
-      let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-      // Angle is now: 0 (right), 90 (top), 180 (left), -90 (bottom)
-      // Map to 0-360 starting from bottom-left (-135 position)
-      
-      // Simpler approach: use Y delta for linear adjustment or implementing actual rotary feels
-      // Let's implement standard "drag up/down" logic for precision or "rotary" logic?
-      // Rotary is more fun.
-      
-      // Convert to 0-360 standard clock-wise from 6 o'clock?
-      // Let's just use drag distance for simplicity and robustness
-    };
-
     const handleMouseUp = () => {
       setIsDragging(false);
     };

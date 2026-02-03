@@ -143,7 +143,7 @@ export class AudioEngine {
 
   getWaveformData(buffer: Uint8Array) {
     if (this.analyser) {
-        this.analyser.getByteTimeDomainData(buffer);
+        this.analyser.getByteTimeDomainData(buffer as any);
     }
   }
 
@@ -267,12 +267,6 @@ export class AudioEngine {
         
         if (bitDepthParam) bitDepthParam.setTargetAtTime(depth, this.context!.currentTime, 0.1);
         if (freqReductionParam) freqReductionParam.setTargetAtTime(reduction, this.context!.currentTime, 0.1);
-    }
-  }
-
-  setVolume(val: number) {
-    if (this.gainNode) {
-        this.gainNode.gain.setTargetAtTime(val, this.context!.currentTime, 0.1);
     }
   }
 
